@@ -140,6 +140,10 @@ if __name__ == '__main__':
     # TimeXer
     parser.add_argument('--patch_len', type=int, default=16, help='patch length')
 
+    # Crosslinear
+    parser.add_argument('--correlation_weight', type=float, default=0.6, help='Reversed weight of correlation_embedding')
+    parser.add_argument('--pos_weight', type=float, default=0.8, help='Reversed weight of position_embedding')
+
     args = parser.parse_args()
     if torch.cuda.is_available() and args.use_gpu:
         args.device = torch.device('cuda:{}'.format(args.gpu))
