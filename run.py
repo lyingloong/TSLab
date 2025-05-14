@@ -137,12 +137,18 @@ if __name__ == '__main__':
                         help="Discrimitive shapeDTW warp preset augmentation")
     parser.add_argument('--extra_tag', type=str, default="", help="Anything extra")
 
+    parser.add_argument('--result_path', type=str, default="test_result.txt", help="Result path")
+
     # TimeXer
     parser.add_argument('--patch_len', type=int, default=16, help='patch length')
 
     # Crosslinear
     parser.add_argument('--correlation_weight', type=float, default=0.6, help='Reversed weight of correlation_embedding')
     parser.add_argument('--pos_weight', type=float, default=0.8, help='Reversed weight of position_embedding')
+
+    # DoubleCNN
+    parser.add_argument('--time_kernel_size', type=int, default=3, help='CNN time kernel size')
+    parser.add_argument('--variable_kernel_size', type=int, default=3, help='CNN variable kernel size')
 
     args = parser.parse_args()
     if torch.cuda.is_available() and args.use_gpu:
@@ -236,7 +242,7 @@ if __name__ == '__main__':
             args.des, ii)
 
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
-        exp.test(setting, test=1)
+        exp.test(setting, test=1, result_path=args.result_path)
         if args.gpu_type == 'mps':
             torch.backends.mps.empty_cache()
         elif args.gpu_type == 'cuda':

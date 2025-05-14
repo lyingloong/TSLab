@@ -172,7 +172,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
         return self.model
 
-    def test(self, setting, test=0):
+    def test(self, setting, test=0, result_path='result_long_term_forecast.txt'):
         test_data, test_loader = self._get_data(flag='test')
         if test:
             print('loading model')
@@ -261,7 +261,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
         mae, mse, rmse, mape, mspe = metric(preds, trues)
         print('mse:{}, mae:{}, dtw:{}'.format(mse, mae, dtw))
-        f = open("result_long_term_forecast.txt", 'a')
+        f = open(result_path, 'a')
         f.write(setting + "  \n")
         f.write('mse:{}, mae:{}, dtw:{}'.format(mse, mae, dtw))
         f.write('\n')
